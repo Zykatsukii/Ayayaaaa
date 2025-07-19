@@ -87,6 +87,14 @@ class BookingViewController extends Controller
     }
 
     /**
+     * Display the specified booking.
+     */
+    public function show(Booking $booking)
+    {
+        return view('bookings.show', compact('booking'));
+    }
+
+    /**
      * Remove the specified booking.
      */
     public function destroy(Booking $booking)

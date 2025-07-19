@@ -13,7 +13,8 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //
+        'dashboard',
+        'bookings/*',
     ];
 
     /**
@@ -24,22 +25,11 @@ class VerifyCsrfToken extends Middleware
      */
     protected function inExceptArray($request)
     {
-        // Allow Railway health checks and other system requests
+        // Allow health checks
         if ($request->is('up') || $request->is('health')) {
             return true;
         }
 
-        // For Railway deployment, be more permissive with CSRF
-        if (app()->environment('production') && $request->is('login')) {
-            // Log the request for debugging
-            Log::info('CSRF check for login route', [
-                'url' => $request->url(),
-                'method' => $request->method(),
-                'has_csrf_token' => $request->has('_token'),
-                'user_agent' => $request->userAgent(),
-            ]);
-        }
-
         return parent::inExceptArray($request);
     }
-} 
+}

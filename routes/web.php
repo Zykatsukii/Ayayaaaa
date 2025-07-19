@@ -3,16 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookingViewController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\UserController;
 
-// Public route (homepage)
+// Public route (homepage) - Welcome page for guests
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 // Guest-only routes (registration)
 Route::middleware('guest')->group(function () {
@@ -21,7 +20,7 @@ Route::middleware('guest')->group(function () {
 });
 
 // Public route for viewing a specific booking
-Route::get('/bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
+Route::get('/bookings/{booking}', [BookingViewController::class, 'show'])->name('bookings.show');
 
 // Authenticated routes
 Route::middleware('auth')->group(function () {
