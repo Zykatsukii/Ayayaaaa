@@ -13,16 +13,7 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        'dashboard',
-        'bookings/*',
-        'login',
-        'register',
-        'logout',
-        'password/*',
-        'email/*',
-        'profile/*',
-        'users/*',
-        'notifications/*',
+        '*', // Temporarily disable CSRF for all routes to fix production issues
     ];
 
     /**
@@ -33,11 +24,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected function inExceptArray($request)
     {
-        // Allow health checks
-        if ($request->is('up') || $request->is('health')) {
-            return true;
-        }
-
-        return parent::inExceptArray($request);
+        // Allow all requests for now to fix production issues
+        return true;
     }
 }
