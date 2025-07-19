@@ -13,6 +13,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+// Test route to check if Laravel is working
+Route::get('/test', function () {
+    return response()->json(['status' => 'Laravel is working!', 'timestamp' => now()]);
+});
+
 // Guest-only routes (registration)
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
