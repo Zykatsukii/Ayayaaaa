@@ -15,7 +15,18 @@ Route::get('/', function () {
 
 // Test route to check if Laravel is working
 Route::get('/test', function () {
-    return response()->json(['status' => 'Laravel is working!', 'timestamp' => now()]);
+    return response()->json([
+        'status' => 'Laravel is working!', 
+        'timestamp' => now(),
+        'environment' => app()->environment(),
+        'session_driver' => config('session.driver'),
+        'app_url' => config('app.url')
+    ]);
+});
+
+// Health check route
+Route::get('/health', function () {
+    return response()->json(['status' => 'healthy']);
 });
 
 // Guest-only routes (registration)
